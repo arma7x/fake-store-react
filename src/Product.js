@@ -6,7 +6,7 @@ export default function Product() {
   let params = useParams();
   return (
     <main style={{ padding: "1rem 0" }}>
-      <h2><span>{count}</span> Product {params.id}</h2>
+      <h2 className="text-center"><span>{count}</span> Product {params.id}</h2>
     </main>
   );
 }
