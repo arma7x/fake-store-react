@@ -17,6 +17,7 @@ export default function Product() {
       FakeStore.getProduct(params.id)
       .then((product) => {
         dispatch(pushProductsRegistry(product))
+        document.title = product.title
       })
       .catch((err) => {
         console.error(err);
@@ -24,6 +25,8 @@ export default function Product() {
       .finally(() => {
         dispatch(setLoading(false))
       })
+    } else {
+      document.title = product.title
     }
   },[]);
   
