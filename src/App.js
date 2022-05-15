@@ -1,37 +1,43 @@
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
-import logo from './logo.svg';
-import './App.css';
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from './counter'
+import { setLoading, storeProducts } from './database'
+import { FakeStore } from './api'
 
 function App() {
-  const count = useSelector((state) => state.counter.value)
+  
+  // const loading = useSelector((state) => state.database.loading)
+  const products = useSelector((state) => state.database.products)
   const dispatch = useDispatch()
  
+  useEffect(() => {
+    document.title = "Fake Store"
+    if (products.length === 0) {
+      fetchProducts()
+    }
+  },[]);
+  
+  const fetchProducts = () => {
+    dispatch(setLoading(true))
+    FakeStore.getProducts()
+    .then((_products) => {
+      dispatch(storeProducts(_products))
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      dispatch(setLoading(false))
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Link to="/product/1">Product</Link>
-		   <div>
-			<button
-			  aria-label="Increment value"
-			  onClick={() => dispatch(increment())}
-			>
-			  Increment
-			</button>
-			<span>{count}</span>
-			<button
-			  aria-label="Decrement value"
-			  onClick={() => dispatch(decrement())}
-			>
-			  Decrement
-			</button>
-		  </div>
-      </header>
+    <div>
+      {
+        products.map((product) =>
+          <Link key={product.id.toString()} to={'/product/' + product.id.toString()}>{product.title.toString()}</Link>
+        )
+      }
     </div>
   );
 }

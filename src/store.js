@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './counter'
+import databaseReducer from './database'
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    database: databaseReducer,
   },
 })
