@@ -29,7 +29,8 @@ function Main() {
           </div>
         </div>
       }
-      <BrowserRouter>
+      {
+        !loading && <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="product/:id" element={<Product />} />
@@ -42,7 +43,8 @@ function Main() {
             }
           />
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+      }
     </Provider>
   )
 }

@@ -12,6 +12,7 @@ export const databaseSlice = createSlice({
       state.loading = action.payload
     },
     storeProducts: (state, action) => {
+      state.products = []
       state.products = [...action.payload]
     },
     pushProductsRegistry: (state, action) => {

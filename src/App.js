@@ -33,11 +33,29 @@ function App() {
 
   return (
     <div>
-      {
-        products.map((product) =>
-          <Link key={product.id.toString()} to={'/product/' + product.id.toString()}>{product.title.toString()}</Link>
-        )
-      }
+      <div className="container">
+        <div className="container">
+          <div className="row d-flex justify-content-between">
+            <div className="col mb-2">
+              <button className="btn btn-primary" onClick={() => fetchProducts()}>Refresh</button>
+            </div>
+            <div className="col mb-2 d-grid d-flex justify-content-end">
+              <div className="d-flex m-0">
+                <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
+              </div>
+            </div>
+          </div>
+          <div className="row justify-content-md-center">
+          {
+            products.map((product) =>
+              <div key={product.id.toString()} className="col col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                <Link to={'/product/' + product.id.toString()}>{product.title.toString()}</Link>
+              </div>
+            )
+          }
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
