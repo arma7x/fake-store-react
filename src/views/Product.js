@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { setLoading, pushProductsRegistry } from './database'
-import { FakeStore } from './api'
+import { setLoading, pushProductsRegistry } from '../store/database'
+import { FakeStore } from '../api'
 
 export default function Product() {
 

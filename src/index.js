@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import Product from './Product'
+import App from './views/App'
+import Product from './views/Product'
 import store from './store'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Routes, Route } from "react-router-dom"

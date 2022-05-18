@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import { setLoading, storeProducts } from './database'
-import { FakeStore } from './api'
+import { setLoading, storeProducts } from '../store/database'
+import { FakeStore } from '../api'
+import ProductWidget from '../widgets/ProductWidget'
 
 function App() {
   
@@ -49,7 +49,7 @@ function App() {
           {
             products.map((product) =>
               <div key={product.id.toString()} className="col col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                <Link to={'/product/' + product.id.toString()}>{product.title.toString()}</Link>
+                <ProductWidget metadata={product} />
               </div>
             )
           }
