@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, storeProducts, searchProducts } from '../store/database'
 import { FakeStore } from '../api'
@@ -8,6 +8,8 @@ function App() {
 
   let searchT = -1;
 
+  const [localSearch, setLocalSearch] = useState("");
+  const searchText = useSelector((state) => state.database.searchText)
   const products = useSelector((state) => state.database.products)
   const dispatch = useDispatch()
 
@@ -33,13 +35,13 @@ function App() {
   }
 
   const onChangeSearchInput = (evt) => {
-    let txt = document.getElementById('searchInput').value.trim().toLowerCase().toString();
+    let txt = evt.target.value.trim().toLowerCase().toString();
+    setLocalSearch(txt);
     if (searchT > 0) {
       clearTimeout(searchT)
       searchT = -1
     }
     searchT = setTimeout(() => {
-      console.log(txt.toString());
       dispatch(searchProducts(txt))
     }, 500);
   }
@@ -54,7 +56,7 @@ function App() {
             </div>
             <div className="col mb-2 d-grid d-flex justify-content-end">
               <div className="d-flex m-0">
-                <input id="searchInput" className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={onChangeSearchInput}/>
+                <input id="searchInput" value={localSearch.length == 0 ? searchText : localSearch} className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={onChangeSearchInput}/>
               </div>
             </div>
           </div>

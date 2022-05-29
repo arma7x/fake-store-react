@@ -29,11 +29,11 @@ export default function Product() {
       document.title = product.title
     }
   },[]);
-  
+
   return (
     <div>
-      { 
-        product != null && 
+      {
+        product != null &&
         <div className="container">
           <button className="btn btn-sm btn-primary mb-2" onClick={() => navigate(-1)}>Return</button>
           <div className="row">
@@ -48,7 +48,7 @@ export default function Product() {
               <h3 className="price-tag">MYR { product.price.toFixed(2) }</h3>
             </div>
           </div>
-        </div> 
+        </div>
       }
     </div>
   );

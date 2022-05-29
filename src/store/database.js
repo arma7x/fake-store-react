@@ -4,6 +4,7 @@ export const databaseSlice = createSlice({
   name: 'database',
   initialState: {
     loading: false,
+    searchText: '',
     database: [],
     products: [],
     productsRegistry: {}
@@ -18,17 +19,17 @@ export const databaseSlice = createSlice({
       state.products = [...state.database]
     },
     searchProducts: (state, action) => {
-      const word = action.payload
-      if (state.database.length > 0 && word.length > 0) {
+      state.searchText = action.payload
+      if (state.database.length > 0 && state.searchText.length > 0) {
         let temp = []
         temp = state.database.filter((product) => {
-          if (product.id.toString().toLowerCase().indexOf(word) > -1) {
+          if (product.id.toString().toLowerCase().indexOf(state.searchText) > -1) {
             return true
-          } else if (product.title.toLowerCase().indexOf(word) > -1) {
+          } else if (product.title.toLowerCase().indexOf(state.searchText) > -1) {
             return true
-          } else if (product.category.toLowerCase().indexOf(word) > -1) {
+          } else if (product.category.toLowerCase().indexOf(state.searchText) > -1) {
             return true
-          } else if (product.description.toLowerCase().indexOf(word) > -1) {
+          } else if (product.description.toLowerCase().indexOf(state.searchText) > -1) {
             return true
           }
           return false
