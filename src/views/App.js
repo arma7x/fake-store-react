@@ -37,7 +37,7 @@ function App() {
   const onChangeSearchInput = (evt) => {
     let txt = evt.target.value.trim().toLowerCase().toString();
     setLocalSearch(txt);
-    const tm = txt.length == 0 ? 0 : 500;
+    const tm = txt.length === 0 ? 0 : 500;
     if (searchT > 0) {
       clearTimeout(searchT)
       searchT = -1
@@ -57,7 +57,7 @@ function App() {
             </div>
             <div className="col mb-2 d-grid d-flex justify-content-end">
               <div className="d-flex m-0">
-                <input id="searchInput" value={localSearch.length == 0 ? searchText : localSearch} className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={onChangeSearchInput}/>
+                <input id="searchInput" value={localSearch.length === 0 ? searchText : localSearch} className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={onChangeSearchInput}/>
               </div>
             </div>
           </div>
