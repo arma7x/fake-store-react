@@ -37,13 +37,14 @@ function App() {
   const onChangeSearchInput = (evt) => {
     let txt = evt.target.value.trim().toLowerCase().toString();
     setLocalSearch(txt);
+    const tm = txt.length == 0 ? 0 : 500;
     if (searchT > 0) {
       clearTimeout(searchT)
       searchT = -1
     }
     searchT = setTimeout(() => {
       dispatch(searchProducts(txt))
-    }, 500);
+    }, tm);
   }
 
   return (
