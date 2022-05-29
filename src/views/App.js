@@ -1,22 +1,23 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setLoading, storeProducts } from '../store/database'
+import { setLoading, storeProducts, searchProducts } from '../store/database'
 import { FakeStore } from '../api'
 import ProductWidget from '../widgets/ProductWidget'
 
 function App() {
-  
-  // const loading = useSelector((state) => state.database.loading)
+
+  let searchT = -1;
+
   const products = useSelector((state) => state.database.products)
   const dispatch = useDispatch()
- 
+
   useEffect(() => {
     document.title = "Fake Store"
     if (products.length === 0) {
       fetchProducts()
     }
   },[]);
-  
+
   const fetchProducts = () => {
     dispatch(setLoading(true))
     FakeStore.getProducts()
@@ -31,6 +32,18 @@ function App() {
     })
   }
 
+  const onChangeSearchInput = (evt) => {
+    let txt = document.getElementById('searchInput').value.trim().toLowerCase().toString();
+    if (searchT > 0) {
+      clearTimeout(searchT)
+      searchT = -1
+    }
+    searchT = setTimeout(() => {
+      console.log(txt.toString());
+      dispatch(searchProducts(txt))
+    }, 500);
+  }
+
   return (
     <div>
       <div className="container">
@@ -41,7 +54,7 @@ function App() {
             </div>
             <div className="col mb-2 d-grid d-flex justify-content-end">
               <div className="d-flex m-0">
-                <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
+                <input id="searchInput" className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={onChangeSearchInput}/>
               </div>
             </div>
           </div>

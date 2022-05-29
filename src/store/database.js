@@ -4,6 +4,7 @@ export const databaseSlice = createSlice({
   name: 'database',
   initialState: {
     loading: false,
+    database: [],
     products: [],
     productsRegistry: {}
   },
@@ -12,8 +13,30 @@ export const databaseSlice = createSlice({
       state.loading = action.payload
     },
     storeProducts: (state, action) => {
-      state.products = []
-      state.products = [...action.payload]
+      state.database = []
+      state.database = [...action.payload]
+      state.products = [...state.database]
+    },
+    searchProducts: (state, action) => {
+      const word = action.payload
+      if (state.database.length > 0 && word.length > 0) {
+        let temp = []
+        temp = state.database.filter((product) => {
+          if (product.id.toString().toLowerCase().indexOf(word) > -1) {
+            return true
+          } else if (product.title.toLowerCase().indexOf(word) > -1) {
+            return true
+          } else if (product.category.toLowerCase().indexOf(word) > -1) {
+            return true
+          } else if (product.description.toLowerCase().indexOf(word) > -1) {
+            return true
+          }
+          return false
+        });
+        state.products = temp
+      } else {
+        state.products = [...state.database]
+      }
     },
     pushProductsRegistry: (state, action) => {
       const product = action.payload
@@ -25,6 +48,6 @@ export const databaseSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setLoading, storeProducts, pushProductsRegistry } = databaseSlice.actions
+export const { setLoading, storeProducts, searchProducts, pushProductsRegistry } = databaseSlice.actions
 
 export default databaseSlice.reducer
